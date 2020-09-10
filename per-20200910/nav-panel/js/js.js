@@ -3,22 +3,18 @@
  * purpose: introdction to jQuery
  */
 
-// Lav en "burger menu" med jQuery og passende effekter ...
-
 // A $( document ).ready() block.
 $(document).ready(function () { // kører så snart DOM er klar
 
 	// ... kode herfra ...
+	$('#menu').hide();
 
-	$("#enKnap").click(function () {
-		$('h2').toggle(777);
-		$("p").css({
-			"background-color": "yellow", 
-			"font-size": "200%",
-			"color": "purple"
-		});
+	// "knap" sådan
+	$("#burger").click(function(){
+  		$('#menu').toggle(234);
+		$('.a').slideToggle(300)
+			.css("background-color", "#ff0033");
 	});
-
 	// ... din kode slut ...
 
 }); // denne line må ikke slettes
