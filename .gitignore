@@ -1,2 +1,4 @@
 
-per-20200910/.DS_Store
+.DS_Store
+*.DS_Store
+**/.DS_Store
