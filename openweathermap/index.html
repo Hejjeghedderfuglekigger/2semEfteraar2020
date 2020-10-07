@@ -22,88 +22,85 @@
             color: lawngreen;
             font-family: 'Berkshire Swash', cursive;
         }
-        
+
         .weatherInfo {
             border: 1px solid lawngreen;
         }
-
     </style>
 </head>
 
 <body>
 
-    <h1>Openweathermap Sample</h1>
+    <h1>Openweathermap Eksempel</h1>
 
-    <!-- the weather will appear below -->
+    <!-- herunder kan du se vejroplysningerne -->
     <div id="result"></div>
 
-    <script>
-        const token = "5af75fef93b71602a5c0b6046efd49c8"; // save your token in this variable
-        /*
-                const aarhus = "https://api.openweathermap.org/data/2.5/weather?q=Aarhus,DK&appid=" 
-                    + token +
-                    "&units=metric";
-        */
-        $(document).ready(function() {
-            
-            
-
-            // get the weather data
-            fetch("http://api.openweathermap.org/data/2.5/weather?q=Aarhus&lang=da&units=metric&appid=201d090c9cceacfc8931df89310ebfbb").then(response => {
-                return response.json();
-            }).then(data => {
-
-                // Work with JSON data here
-                console.log(data); // show what's in the json
-
-                // solnedgang
-                var sunsetMs = data.sys.sunset * 1000;
-                var sunset = new Date(sunsetMs);
-                
-                // Datoformattering @URI < https://www.w3schools.com/js/js_date_methods.asp >
-                var sunsetTime = sunset.getHours() + ":" + sunset.getMinutes();
-
-                /*
-                Prøv selv: 
-                Tilføj oplysninger om solopgang.
-                */
+<script>
     
-                // herunder: eksempel på egen grafik
-                $('#result').append(
+/*
+@datasæt hentes sådan:
 
-                    // tilføjer ("append") en div til vejroplysninger
-                    '<div class="weatherInfo">' +
-             
-                        // tilføjer en overskrift
-                        '<h2>Vejret: ' + data.weather[0].description + '</h2>' +
+http://api.openweathermap.org/data/2.5/weather?
+q=Aarhus
+&lang=da
+&units=metric
+&appid=201d090c9cceacfc8931df89310ebfbb
+*/
+    
+$(document).ready(function() {
 
-                        // tilføjer lufttryk
-                        '<p> By: ' + data.name + '. </p>' +
+    // get the weather data via query URI
+    fetch("http://api.openweathermap.org/data/2.5/weather?q=Aarhus&lang=da&units=metric&appid=201d090c9cceacfc8931df89310ebfbb").then(response => {
+        return response.json();
+    }).then(data => {
 
-                        // tilføjer vejrsymbol
-                        '<figure>' +
-                        '<img src="images/' + data.weather[0].icon + '.png" alt="Vejrsymbol">' +
-                        '</figure>' +
+        // Work with JSON data here
+        console.log(data); // show what's in the json
 
-                        // tilføjer klokkeslet for solens nedgang i vest
-                        '<p> Solnedgang: ' + sunsetTime + '</p>' +
+        // solnedgang
+        var sunsetMs = data.sys.sunset * 1000; // dato-objektet har brug for millisek. Derfor * 1000
+        var sunset = new Date(sunsetMs);
 
-                    // afslutter #weatherInfo taggen
-                    '</div>'); // .append til #result slut
+        // Datoformattering @URI < https://www.w3schools.com/js/js_date_methods.asp >
+        var sunsetTime = sunset.getHours() + ":" + sunset.getMinutes();
 
-                // here are the icons: https://openweathermap.org/weather-conditions 
+        /*
+        --> Prøv selv: 
+        --> Tilføj oplysninger om solopgang.
+        */
 
-            }).catch(err => {
-                // Do something for an error here
-                console.log('There was an error ...');
-            });
-            
-            
+        // herunder: eksempel på egen grafik
+        $('#result').append(
 
-        }); // document ready end
+            // tilføjer ("append") en div til vejroplysninger
+            '<div class="weatherInfo">' +
 
-    </script>
+            // tilføjer bynavn
+            '<h1> ' + data.name + ' </h1>' +
 
-</body>
+            // tilføjer en beskrivelse af vejret lige nu
+            '<h2>Vejr: ' + data.weather[0].description + '</h2>' +
 
-</html>
+            // tilføjer vejrsymbol
+            '<figure>' +
+            '<img src="images/' + data.weather[0].icon + '.png" alt="Vejrsymbol">' +
+            '</figure>' +
+
+            // tilføjer klokkeslet for solens nedgang i vest
+            '<p> Solnedgang: ' + sunsetTime + '</p>' +
+
+            // afslutter #weatherInfo taggen
+            '</div>'); // .append til #result slut
+
+        // here are the icons: https://openweathermap.org/weather-conditions 
+
+    }).catch(err => {
+        // Do something for an error here
+        console.log('There was an error ...');
+    });
+
+}); // document ready end
+</script>
+
+</body></html>
