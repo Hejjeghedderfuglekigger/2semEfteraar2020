@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <title>Weather: Here and now</title>
+
+    <style>
+        /* google font: Berkshire */
+        @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
+
+        body {
+            text-align: center;
+            font-family: sans serif;
+            font-size: large;
+            background: black;
+            color: lawngreen;
+            font-family: 'Berkshire Swash', cursive;
+        }
+        
+        .weatherInfo {
+            border: 1px solid lawngreen;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Openweathermap Sample</h1>
+
+    <!-- the weather will appear below -->
+    <div id="result"></div>
+
+    <script>
+        const token = "5af75fef93b71602a5c0b6046efd49c8"; // save your token in this variable
+        /*
+                const aarhus = "https://api.openweathermap.org/data/2.5/weather?q=Aarhus,DK&appid=" 
+                    + token +
+                    "&units=metric";
+        */
+        $(document).ready(function() {
+            
+            
+
+            // get the weather data
+            fetch("http://api.openweathermap.org/data/2.5/weather?q=Aarhus&lang=da&units=metric&appid=201d090c9cceacfc8931df89310ebfbb").then(response => {
+                return response.json();
+            }).then(data => {
+
+                // Work with JSON data here
+                console.log(data); // show what's in the json
+
+                // solnedgang
+                var sunsetMs = data.sys.sunset * 1000;
+                var sunset = new Date(sunsetMs);
+                
+                // Datoformattering @URI < https://www.w3schools.com/js/js_date_methods.asp >
+                var sunsetTime = sunset.getHours() + ":" + sunset.getMinutes();
+
+                /*
+                Prøv selv: 
+                Tilføj oplysninger om solopgang.
+                */
+    
+                // herunder: eksempel på egen grafik
+                $('#result').append(
+
+                    // tilføjer ("append") en div til vejroplysninger
+                    '<div class="weatherInfo">' +
+             
+                        // tilføjer en overskrift
+                        '<h2>Vejret: ' + data.weather[0].description + '</h2>' +
+
+                        // tilføjer lufttryk
+                        '<p> By: ' + data.name + '. </p>' +
+
+                        // tilføjer vejrsymbol
+                        '<figure>' +
+                        '<img src="images/' + data.weather[0].icon + '.png" alt="Vejrsymbol">' +
+                        '</figure>' +
+
+                        // tilføjer klokkeslet for solens nedgang i vest
+                        '<p> Solnedgang: ' + sunsetTime + '</p>' +
+
+                    // afslutter #weatherInfo taggen
+                    '</div>'); // .append til #result slut
+
+                // here are the icons: https://openweathermap.org/weather-conditions 
+
+            }).catch(err => {
+                // Do something for an error here
+                console.log('There was an error ...');
+            });
+            
+            
+
+        }); // document ready end
+
+    </script>
+
+</body>
+
+</html>
