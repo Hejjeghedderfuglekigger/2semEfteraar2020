@@ -51,7 +51,7 @@ q=Aarhus
 $(document).ready(function() {
 
     // get the weather data via query URI
-    fetch("http://api.openweathermap.org/data/2.5/weather?q=Aarhus&lang=da&units=metric&appid=201d090c9cceacfc8931df89310ebfbb").then(response => {
+    fetch("http://api.openweathermap.org/data/2.5/weather?q=Aarhus&lang=da&units=metric&appid=ADD-YOUR-TOKEN-HERE").then(response => {
         return response.json();
     }).then(data => {
 
