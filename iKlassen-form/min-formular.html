@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multipart Form</title>
+        <style>
+            body {
+                background-color: burlywood;
+            }
+        </style>
+    </head>
+
+<body>
+
+    <h2>HTML Forms</h2>
+
+    <form action="formdata.php" method="post">
+        <section id="navn">
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="fname" value="John"><br>
+
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname" value="Doe"><br><br>
+            
+            <button type="button" id="naeste"> Næste </button>
+        </section>
+
+        <section id="radio">
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Mand</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Kvinde</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Andet</label>
+            
+            <button type="button" id="valgBtn"> Næste </button>
+        </section>
+
+        <section id="valg">
+            <label class="container">One
+                <input type="checkbox" checked="checked">
+                <span class="checkmark"></span>
+            </label>
+
+            <label class="container">Two
+                <input type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+
+            <label class="container">Three
+                <input type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+
+            <label class="container">Four
+                <input type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+    
+            <br><br>
+            
+            <!-- knap sender formular af sted -->
+            <input type="submit" value="Send">
+        
+        </section>
+    </form>
+
+    <!-- importerer jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            /// kode herfra
+            console.log('jQuery kører');
+            
+            // gem det som skal være usynligt
+            $('#radio').hide();
+            $('#valg').hide();
+            
+            // klik på #naeste
+            $('#naeste').click( function(){ 
+                console.log('der klikkes på næste');
+                // skjule #navn
+                $('#navn').hide();
+                // vise #radio
+                $('#radio').show();
+            } );
+            
+            // klik på #valgBtn
+            $('#valgBtn').click(
+                function(){
+                    $('#radio').hide(); // skjul radio buttons
+                    $('#valg').show(); // viser valg
+                }
+            );
+            
+            /// kode slut
+        }); // må ikke slettes
+
+    </script>
+
+</body>
+
+</html>
